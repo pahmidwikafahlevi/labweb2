@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lab2Web - Biodata Mahasiswa</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 0;
+            background-color: #f4f6f8;
+            color: #222;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .header-logo {
+            width: 140px;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+        }
+
+        .header-text {
+            text-align: left;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        header p {
+            margin-bottom: 0;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #fff7ed;
+        }
+
+        main {
+            width: 90%;
+            max-width: 1100px;
+            margin: 30px auto;
+        }
+
+        section,
+        article,
+        aside {
+            background-color: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            color: #f97316;
+            border-bottom: 2px solid #f97316;
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: #c2410c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #555;
+        }
+
+        th {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            color: white;
+            padding: 12px;
+            text-align: center;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+
+        tfoot {
+            font-weight: bold;
+            background-color: #ffedd5;
+        }
+
+        form {
+            margin-top: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            font-size: 15px;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 7px;
+        }
+
+        .radio-group label,
+        .checkbox-group label {
+            display: inline-block;
+            margin-right: 20px;
+            font-weight: normal;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 8px;
+            font-size: 15px;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            color: white;
+        }
+
+        button[type="reset"] {
+            background-color: #f59e0b;
+            color: white;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .media-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        audio,
+        video {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 10px;
+        }
+
+        .info-box {
+            background-color: #fff7ed;
+            border-left: 5px solid #f97316;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        footer {
+            background-color: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .data-diri {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .data-diri strong {
+            color: #c2410c;
+        }
+
+        @media (max-width: 700px) {
+            .header-brand {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-text {
+                text-align: center;
+            }
+
+            nav a {
+                display: block;
+                margin: 8px;
+            }
+
+            main {
+                width: 95%;
+            }
+
+            .data-diri {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header id="beranda">
+        <div class="header-brand">
+            <img src="logo-upb.svg" alt="Logo Universitas Pelita Bangsa" class="header-logo">
+            <div class="header-text">
+                <h1>Portal Mahasiswa</h1>
+                <p>Praktikum Pemrograman Web - HTML Lanjutan</p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#beranda">Beranda</a>
+        <a href="#mahasiswa">Data Mahasiswa</a>
+        <a href="#form">Form Registrasi</a>
+        <a href="#multimedia">Multimedia</a>
+        <a href="#biodata">Biodata</a>
+    </nav>
+
+    <main>
+
+        <section id="mahasiswa">
+            <h2>1. Data Mahasiswa</h2>
+            <p>
+                Berikut adalah contoh tabel data mahasiswa.
+                Tabel menggunakan elemen <b>table</b>, <b>thead</b>,
+                <b>tbody</b>, dan <b>tfoot</b>.
+            </p>
+
+            <table>
+                <caption><strong>Data Mahasiswa Teknik Informatika</strong></caption>
+                <thead>
+                    <tr>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Program Studi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>312510339</td><td>Rahsya Alfrendika</td><td>Teknik Informatika</td></tr>
+                    <tr><td>312510389</td><td>Pahmi Dwika Fahlevi</td><td>Teknik Informatika</td></tr>
+                    <tr><td>312510303</td><td>fikry</td><td>Sistem Informasi</td></tr>
+                    <tr><td>312510304</td><td>febryan</td><td>Teknik Informatika</td></tr>
+                    <tr><td>312510339</td><td>Andika</td><td>Teknik Informatika</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Jumlah Mahasiswa</td>
+                        <td>5 Orang</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </section>
+
+        <section id="nilai">
+            <h2>2. Nilai Praktikum</h2>
+            <table border="1">
+                <caption><strong>Nilai Praktikum Mahasiswa</strong></caption>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Nilai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Rahsya Alfrendika</td><td>85</td></tr>
+                    <tr><td>2</td><td>Pahmi Dwika Fahlevi</td><td>90</td></tr>
+                    <tr><td>3</td><td>fikry</td><td>88</td></tr>
+                    <tr><td>4</td><td>febryan</td><td>92</td></tr>
+                    <tr><td>5</td><td>Andika</td><td>86</td></tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Rata-rata</td>
+                        <td>88.6</td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="info-box">
+                <strong>Eksperimen:</strong>
+                Perhatikan penggunaan <code>colspan="2"</code>
+                pada bagian footer tabel untuk menggabungkan dua kolom.
+            </div>
+        </section>
+
+        <section id="form">
+            <h2>3. Form Registrasi Mahasiswa</h2>
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required minlength="3">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan password" minlength="6" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal">Tanggal Lahir</label>
+                    <input type="date" id="tanggal" name="tanggal" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Jenis Kelamin</label>
+                    <div class="radio-group">
+                        <label><input type="radio" id="laki" name="jk" value="L" required> Laki-laki</label>
+                        <label><input type="radio" id="perempuan" name="jk" value="P"> Perempuan</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Keahlian</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" id="html" name="skill" value="HTML"> HTML</label>
+                        <label><input type="checkbox" id="css" name="skill" value="CSS"> CSS</label>
+                        <label><input type="checkbox" id="javascript" name="skill" value="JavaScript"> JavaScript</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="prodi">Program Studi</label>
+                    <select id="prodi" name="prodi" required>
+                        <option value="">-- Pilih Prodi --</option>
+                        <option value="ti">Teknik Informatika</option>
+                        <option value="si">Sistem Informasi</option>
+                        <option value="mi">Manajemen Informatika</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="alamat">Alamat</label>
+                    <textarea id="alamat" name="alamat" rows="5" placeholder="Masukkan alamat lengkap" required></textarea>
+                </div>
+
+                <button type="submit">Daftar</button>
+                <button type="reset">Reset</button>
+            </form>
+        </section>
+
+        <section id="validasi">
+            <h2>4. Validasi Form Dasar</h2>
+            <p>
+                Form berikut digunakan untuk menguji validasi HTML.
+                Silakan klik tombol <b>Kirim</b> tanpa mengisi data.
+            </p>
+
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="nama-validasi">Nama</label>
+                    <input type="text" id="nama-validasi" name="nama" required minlength="3" placeholder="Minimal 3 karakter">
+                </div>
+
+                <div class="form-group">
+                    <label for="email-validasi">Email</label>
+                    <input type="email" id="email-validasi" name="email" required placeholder="Masukkan email">
+                </div>
+
+                <div class="form-group">
+                    <label for="umur">Umur</label>
+                    <input type="number" id="umur" name="umur" min="17" max="60" required placeholder="17 - 60">
+                </div>
+
+                <button type="submit">Kirim</button>
+            </form>
+
+            <div class="info-box">
+                <strong>Uji validasi:</strong>
+                Coba klik tombol Kirim tanpa mengisi data.
+                Browser akan menampilkan pesan bahwa data wajib diisi.
+            </div>
+        </section>
+
+        <section id="semantic">
+            <h2>5. Struktur Semantic HTML</h2>
+            <article>
+                <h3>Praktikum HTML Lanjutan</h3>
+                <p>
+                    Mahasiswa mempelajari tabel, form,
+                    semantic HTML, multimedia, dan validasi.
+                </p>
+            </article>
+
+            <aside>
+                <h3>Informasi Tambahan</h3>
+                <p>
+                    Semantic HTML membuat struktur halaman
+                    lebih mudah dipahami oleh browser,
+                    mesin pencari, dan developer.
+                </p>
+            </aside>
+        </section>
+
+        <section id="multimedia">
+            <h2>6. Multimedia</h2>
+
+            <div class="media-box">
+                <h3>Audio</h3>
+                <p>Contoh elemen audio HTML5:</p>
+                <audio controls preload="none">
+                    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                    Browser Anda tidak mendukung elemen audio.
+                </audio>
+            </div>
+
+            <div class="media-box">
+                <h3>Video</h3>
+                <p>Contoh elemen video HTML5:</p>
+                <video controls width="480" preload="metadata">
+                    <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung elemen video.
+                </video>
+            </div>
+        </section>
+
+        <section id="biodata">
+            <h2>7. Proyek Mini - Biodata Mahasiswa</h2>
+            <article>
+                <h3>Data Mahasiswa</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Keterangan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>NIM</td><td>312510389</tr>
+                        <tr><td>Nama</td><td>Pahmi Dwika Fahlevi</td></tr>
+                        <tr><td>Program Studi</td><td>Teknik Informatika</td></tr>
+                        <tr><td>Jenis Kelamin</td><td>Laki-Laki</td></tr>
+                        <tr><td>Email</td><td>pahmidwikafahlevi@email.com</td></tr>
+                    </tbody>
+                </table>
+            </article>
+
+            <article>
+                <h3>Form Biodata</h3>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="bio-nama">Nama</label>
+                        <input type="text" id="bio-nama" name="nama" required minlength="3" placeholder="Masukkan nama">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio-email">Email</label>
+                        <input type="email" id="bio-email" name="email" required placeholder="Masukkan email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio-prodi">Program Studi</label>
+                        <select id="bio-prodi" name="prodi" required>
+                            <option value="">-- Pilih Prodi --</option>
+                            <option value="ti">Teknik Informatika</option>
+                            <option value="si">Sistem Informasi</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bio-alamat">Alamat</label>
+                        <textarea id="bio-alamat" name="alamat" rows="5" required placeholder="Masukkan alamat"></textarea>
+                    </div>
+
+                    <button type="submit">Simpan</button>
+                    <button type="reset">Reset</button>
+                </form>
+            </article>
+        </section>
+
+        <section>
+            <h2>Kesimpulan Praktikum</h2>
+            <p>
+                Pada praktikum ini telah dibuat halaman web menggunakan
+                HTML lanjutan yang terdiri dari tabel data mahasiswa,
+                form registrasi, radio button, checkbox, select,
+                textarea, validasi form, semantic HTML, multimedia,
+                serta proyek mini biodata mahasiswa.
+            </p>
+
+            <p>
+                Halaman ini juga menggunakan atribut HTML seperti
+                <b>required</b>, <b>minlength</b>, <b>min</b>,
+                <b>max</b>, <b>type</b>, <b>id</b>, <b>name</b>,
+                <b>value</b>, dan <b>colspan</b>.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Teknik Informatika</p>
+        <p>Praktikum Pemrograman Web - Lab2Web</p>
+    </footer>
+</body>
+
+</html>
